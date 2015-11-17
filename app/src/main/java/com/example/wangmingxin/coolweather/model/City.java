@@ -21,7 +21,7 @@ public class City {
         return cityName;
     }
 
-    public void setCityName(String provinceName){
+    public void setCityName(String cityName){
         this.cityName = cityName;
     }
 
