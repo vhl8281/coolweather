@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.wangmingxin.coolweather.R;
+import com.example.wangmingxin.coolweather.service.AutoUpdateService;
 import com.example.wangmingxin.coolweather.util.HttpCallbackListener;
 import com.example.wangmingxin.coolweather.util.HttpUtil;
 import com.example.wangmingxin.coolweather.util.Utility;
@@ -72,8 +73,8 @@ public class WeatherActivity extends Activity implements View.OnClickListener{
         temp1Text = (TextView) findViewById(R.id.temp1);
         temp2Text = (TextView) findViewById(R.id.temp2);
         currentDateText = (TextView) findViewById(R.id.current_date);
-//        switchCity = (Button) findViewById(R.id.switch_city);
-//        refreshWeather = (Button) findViewById(R.id.refresh_weather);
+        switchCity = (Button) findViewById(R.id.switch_city);
+        refreshWeather = (Button) findViewById(R.id.refresh_weather);
         String countyCode = getIntent().getStringExtra("county_code");
         if(!TextUtils.isEmpty(countyCode)){
             //有县级代号时就去查询天气
@@ -91,24 +92,24 @@ public class WeatherActivity extends Activity implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-//        switch (v.getId()){
-//            case R.id.switch_city:
-//                Intent intent = new Intent(this , ChooseAreaActivity.class);
-//                intent.putExtra("from_weather_activity", true);
-//                startActivity(intent);
-//                finish();
-//                break;
-//            case R.id.refresh_weather:
-//                publishText.setText("同步中...");
-//                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-//                String weatherCode = prefs.getString("weather_code" , "");
-//                if(!TextUtils.isEmpty(weatherCode)){
-//                    queryWeatherInfo(weatherCode);
-//                }
-//                break;
-//            default:
-//                break;
-//        }
+        switch (v.getId()){
+            case R.id.switch_city:
+                Intent intent = new Intent(this , ChooseAreaActivity.class);
+                intent.putExtra("from_weather_activity", true);
+                startActivity(intent);
+                finish();
+                break;
+            case R.id.refresh_weather:
+                publishText.setText("同步中...");
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+                String weatherCode = prefs.getString("weather_code" , "");
+                if(!TextUtils.isEmpty(weatherCode)){
+                    queryWeatherInfo(weatherCode);
+                }
+                break;
+            default:
+                break;
+        }
     }
 
     /**
@@ -181,9 +182,11 @@ public class WeatherActivity extends Activity implements View.OnClickListener{
         temp2Text.setText(prefs.getString("temp2" , ""));
         weatherDespText.setText(prefs.getString("weather_desp" , ""));
         publishText.setText("今天" + prefs.getString("publish_time" , "") + "发布");
-        currentDateText.setText(prefs.getString("current_date" , ""));
+        currentDateText.setText(prefs.getString("current_date", ""));
         weatherInfoLayout.setVisibility(View.VISIBLE);
         cityNameText.setVisibility(View.VISIBLE);
+        Intent intent = new Intent(this , AutoUpdateService.class);
+        startService(intent);
     }
 
 }

@@ -4,10 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#484E63">
+        android:background="#484E61">
+
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:id="@+id/switch_city"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:text="切换城市"
+            android:textSize="25sp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -16,6 +26,17 @@
             android:layout_centerInParent="true"
             android:textColor="#fff"
             android:textSize="24sp"/>
+
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:id="@+id/refresh_weather"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:text="刷新"
+            android:textSize="25sp"
+            />
     </RelativeLayout>
 
     <RelativeLayout
